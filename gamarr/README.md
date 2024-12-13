@@ -1,2 +1,6 @@
-# Game Organizer Application
-This is a web-based application to organize console games.
+# Enhanced Game Organizer Application
+This version includes:
+- A Game Library UI
+- A Form to Add New Games
+- Basic Navigation
+- Database and API Support

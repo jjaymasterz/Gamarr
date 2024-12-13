@@ -54,3 +54,36 @@ namespace gamarr
         }
     }
 }
+
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddRazorPages();
+    services.AddControllers(); // Add support for API Controllers
+    services.AddDbContext<GameContext>(options =>
+        options.UseInMemoryDatabase("GameDb")); // Replace with actual database if needed
+}
+
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+        app.UseExceptionHandler("/Error");
+        app.UseHsts();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+    app.UseRouting();
+    app.UseAuthorization();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapRazorPages();
+        endpoints.MapControllers(); // Map API endpoints
+    });
+}

@@ -1,0 +1,29 @@
+@page
+@model gamarr.Pages.GamesModel
+@{
+    ViewData["Title"] = "Game Library";
+}
+
+<h1>Game Library</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Platform</th>
+            <th>Genre</th>
+            <th>Release Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var game in Model.Games)
+        {
+            <tr>
+                <td>@game.Title</td>
+                <td>@game.Platform</td>
+                <td>@game.Genre</td>
+                <td>@game.ReleaseDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
