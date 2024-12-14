@@ -1,60 +1,33 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using gamarr.Data;
 
-namespace gamarr
+public class Startup
 {
-    public class Startup
+    public void ConfigureServices(IServiceCollection services)
     {
-        public Startup(IConfiguration configuration)
+        services.AddRazorPages();
+        services.AddControllers();
+        services.AddDbContext<GameContext>(options =>
+            options.UseSqlite("Data Source=games.db"));
+    }
+
+    public void Configure(IApplicationBuilder app)
+    {
+        if (app.ApplicationServices.GetRequiredService<IWebHostEnvironment>().IsDevelopment())
         {
-            Configuration = configuration;
+            app.UseDeveloperExceptionPage();
         }
 
-        public IConfiguration Configuration { get; }
-
-        // Configure services
-        public void ConfigureServices(IServiceCollection services)
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+        app.UseRouting();
+        app.UseAuthorization();
+        app.UseEndpoints(endpoints =>
         {
-            services.AddRazorPages();
-            services.AddControllers();
-        }
-
-        // Configure middleware
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-                endpoints.MapControllers();
-            });
-        }
-        public void ConfigureServices(IServiceCollection services)
-{
-    services.AddDbContext<GameContext>(options =>
-        options.UseSqlite("Data Source=games.db"));
-    services.AddRazorPages();
-    services.AddControllers();
-}
-
+            endpoints.MapRazorPages();
+            endpoints.MapControllers();
+        });
     }
 }
