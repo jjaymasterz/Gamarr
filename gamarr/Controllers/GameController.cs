@@ -22,5 +22,18 @@ namespace gamarr.Controllers
             var games = _context.Games.ToList();
             return Ok(games);
         }
+
+        [HttpPost]
+        public IActionResult AddGame([FromBody] Game game)
+        {
+            if (game == null)
+            {
+                return BadRequest("Game data is invalid.");
+            }
+
+            _context.Games.Add(game);
+            _context.SaveChanges();
+            return Ok(new { Message = "Game added successfully", Game = game });
+        }
     }
 }

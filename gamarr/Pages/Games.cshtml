@@ -7,24 +7,24 @@
 <h1>Game Library</h1>
 
 <div class="grid-view">
-    <!-- Dynamic game cards will populate here -->
+    <!-- Game cards dynamically populated -->
 </div>
 
 <script>
-    fetch('/api/game')
-        .then(response => response.json())
-        .then(data => {
-            const gridView = document.querySelector('.grid-view');
-            gridView.innerHTML = data.map(game => `
-                <div class="game-card">
-                    <img src="${game.coverImage || '/images/game-cover-placeholder.png'}" alt="Game Cover">
-                    <div class="info">
-                        <h3>${game.title}</h3>
-                        <p>Platform: ${game.platform}</p>
-                        <p>Genre: ${game.genre}</p>
-                        <p>Release Date: ${new Date(game.releaseDate).toLocaleDateString()}</p>
-                    </div>
-                </div>
-            `).join('');
-        });
+    async function fetchGames() {
+        const response = await fetch('/api/game');
+        const games = await response.json();
+
+        const gridView = document.querySelector('.grid-view');
+        gridView.innerHTML = games.map(game => `
+            <div class="game-card">
+                <h3>${game.title}</h3>
+                <p>Platform: ${game.platform}</p>
+                <p>Genre: ${game.genre}</p>
+                <p>Release Date: ${new Date(game.releaseDate).toLocaleDateString()}</p>
+            </div>
+        `).join('');
+    }
+
+    fetchGames();
 </script>

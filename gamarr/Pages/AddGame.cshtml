@@ -1,0 +1,48 @@
+@page
+@model gamarr.Pages.AddGameModel
+@{
+    ViewData["Title"] = "Add Game";
+}
+
+<h1>Add New Game</h1>
+
+<form id="add-game-form">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="platform">Platform:</label>
+    <input type="text" id="platform" name="platform" required>
+
+    <label for="genre">Genre:</label>
+    <input type="text" id="genre" name="genre" required>
+
+    <label for="releaseDate">Release Date:</label>
+    <input type="date" id="releaseDate" name="releaseDate" required>
+
+    <button type="submit">Add Game</button>
+</form>
+
+<script>
+    document.getElementById("add-game-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const game = {
+            title: document.getElementById("title").value,
+            platform: document.getElementById("platform").value,
+            genre: document.getElementById("genre").value,
+            releaseDate: document.getElementById("releaseDate").value
+        };
+
+        const response = await fetch('/api/game', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(game)
+        });
+
+        if (response.ok) {
+            alert("Game added successfully!");
+            document.getElementById("add-game-form").reset();
+        } else {
+            alert("Failed to add game.");
+        }
+    });
+</script>
