@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\johnn\Documents\Gamarr\gamarr
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/johnn/Documents/Gamarr/gamarr/Pages/AddGame.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkR2FtZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/johnn/Documents/Gamarr/gamarr/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
