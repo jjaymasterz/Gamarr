@@ -48,5 +48,13 @@ namespace gamarr
                 endpoints.MapControllers();
             });
         }
+        public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<GameContext>(options =>
+        options.UseSqlite("Data Source=games.db"));
+    services.AddRazorPages();
+    services.AddControllers();
+}
+
     }
 }

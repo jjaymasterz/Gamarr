@@ -9,5 +9,6 @@ namespace gamarr.Models
         public string Platform { get; set; }
         public string Genre { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public string CoverImage { get; set; }
     }
 }
