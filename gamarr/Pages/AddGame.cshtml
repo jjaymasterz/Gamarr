@@ -4,20 +4,28 @@
     ViewData["Title"] = "Add Game";
 }
 
-<h1>Add New Game</h1>
+<h1>Add a New Game</h1>
 
-<form id="add-game-form">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required>
+<form id="add-game-form" method="post">
+    <div>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" placeholder="Enter game title" required>
+    </div>
 
-    <label for="platform">Platform:</label>
-    <input type="text" id="platform" name="platform" required>
+    <div>
+        <label for="platform">Platform</label>
+        <input type="text" id="platform" name="platform" placeholder="Enter game platform" required>
+    </div>
 
-    <label for="genre">Genre:</label>
-    <input type="text" id="genre" name="genre" required>
+    <div>
+        <label for="genre">Genre</label>
+        <input type="text" id="genre" name="genre" placeholder="Enter game genre" required>
+    </div>
 
-    <label for="releaseDate">Release Date:</label>
-    <input type="date" id="releaseDate" name="releaseDate" required>
+    <div>
+        <label for="releaseDate">Release Date</label>
+        <input type="date" id="releaseDate" name="releaseDate" required>
+    </div>
 
     <button type="submit">Add Game</button>
 </form>
@@ -25,6 +33,7 @@
 <script>
     document.getElementById("add-game-form").addEventListener("submit", async (e) => {
         e.preventDefault();
+
         const game = {
             title: document.getElementById("title").value,
             platform: document.getElementById("platform").value,
@@ -40,9 +49,42 @@
 
         if (response.ok) {
             alert("Game added successfully!");
-            document.getElementById("add-game-form").reset();
+            window.location.href = "/Games";
         } else {
-            alert("Failed to add game.");
+            alert("Failed to add game. Please try again.");
         }
     });
 </script>
+
+<style>
+    form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #2c2c2c;
+        border-radius: 8px;
+    }
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    form input {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+    }
+    form button {
+        background-color: #444;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    form button:hover {
+        background-color: #555;
+    }
+</style>

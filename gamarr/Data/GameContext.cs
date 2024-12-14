@@ -7,6 +7,14 @@ namespace gamarr.Data
     {
         public GameContext(DbContextOptions<GameContext> options) : base(options) { }
 
-        public DbSet<Game> Games { get; set; }
+        public DbSet<Game> Games { get; set; } = null!; // Non-nullable fix
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseNpgsql("Host=localhost;Database=VideoGameDb;Username=postgre;Password=gamarr");
+            }
+        }
     }
 }

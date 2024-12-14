@@ -1,33 +1,42 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using gamarr.Data;
+using Microsoft.EntityFrameworkCore;
 
-public class Startup
+namespace gamarr
 {
-    public void ConfigureServices(IServiceCollection services)
+    public class Startup
     {
-        services.AddRazorPages();
-        services.AddControllers();
-        services.AddDbContext<GameContext>(options =>
-            options.UseSqlite("Data Source=games.db"));
-    }
-
-    public void Configure(IApplicationBuilder app)
-    {
-        if (app.ApplicationServices.GetRequiredService<IWebHostEnvironment>().IsDevelopment())
+        public void ConfigureServices(IServiceCollection services)
         {
-            app.UseDeveloperExceptionPage();
+            services.AddDbContext<GameContext>(options =>
+                options.UseNpgsql("Host=localhost;Database=VideoGameDb;Username=postgre;Password=gamarr"));
+            services.AddRazorPages();
+            services.AddControllers();
         }
 
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-        app.UseRouting();
-        app.UseAuthorization();
-        app.UseEndpoints(endpoints =>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            endpoints.MapRazorPages();
-            endpoints.MapControllers();
-        });
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+            });
+        }
     }
 }
